@@ -8,6 +8,8 @@ import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
 import { InjectedConnector } from 'wagmi/connectors/injected'
 import { Button, Stack } from '@chakra-ui/react'
 import { Container } from '@chakra-ui/react'
+import WalletSDK from '@metamask/sdk'
+
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -25,14 +27,27 @@ export default function Home() {
   const { address, isConnected } = useAccount()
   const { connect } = useConnect({
     connector: coinbaseConn,
+    onError(error) {
+      console.log('Error connect CO', error)
+    }
   })
   const { connect: connectMM } = useConnect({
     connector: metamaskConn,
+    onError(error) {
+      console.log('Error connect MM', error)
+    }
   })
-  const { disconnect } = useDisconnect()
+  const { disconnect } = useDisconnect({
+    onError(error) {
+      console.log('Error disconnect', error)
+    },
+  })
   useEffect(() => {
-    console.log("----init");
-
+    new WalletSDK({
+      useDeeplink: false,
+      communicationLayerPreference: 'socket',
+    })
+    console.log("----init sdk");
   }, []);
   return (
     <>
