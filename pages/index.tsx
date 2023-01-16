@@ -2,10 +2,29 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
+import { useAccount, useConnect, useDisconnect } from 'wagmi'
+import { InjectedConnector } from 'wagmi/connectors/injected'
+import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
+
 
 const inter = Inter({ subsets: ['latin'] })
 
+const  metamaskConn = new InjectedConnector();
+const coinbaseConn  = new CoinbaseWalletConnector({
+  options: {
+    appName: 'wagmi.sh'        
+  },
+})
+
 export default function Home() {
+  const { address, isConnected } = useAccount()
+  const { connect } = useConnect({
+    connector: coinbaseConn,
+  })
+  const { connect : connectMM } = useConnect({
+    connector: metamaskConn,
+  })
+  const { disconnect } = useDisconnect()
   return (
     <>
       <Head>
@@ -15,8 +34,13 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <div className={styles.description}>
-          <h1>CIAOOO</h1>
+        <div className={styles.description}>          
+          <div>
+          {isConnected ? <div>
+        Connected to {address}
+        <button onClick={() => disconnect()}>Disconnect</button>
+      </div> :  <div><button onClick={() => connect()}>Connect Wallet CO</button><button onClick={() => connectMM()}>Connect MMM</button></div>}
+          </div>
         </div>
       </main>
     </>
