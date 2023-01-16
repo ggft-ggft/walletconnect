@@ -1,10 +1,13 @@
 import styles from '@/styles/Home.module.css'
 import { Inter } from '@next/font/google'
 import Head from 'next/head'
+import { useEffect } from 'react'
 import { useAccount, useConnect, useDisconnect } from 'wagmi'
 import { mainnet, optimism } from 'wagmi/chains'
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
 import { InjectedConnector } from 'wagmi/connectors/injected'
+import { Button, Stack } from '@chakra-ui/react'
+import { Container } from '@chakra-ui/react'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,6 +19,8 @@ const coinbaseConn = new CoinbaseWalletConnector({
   },
 })
 
+
+
 export default function Home() {
   const { address, isConnected } = useAccount()
   const { connect } = useConnect({
@@ -25,6 +30,10 @@ export default function Home() {
     connector: metamaskConn,
   })
   const { disconnect } = useDisconnect()
+  useEffect(() => {
+    console.log("----init");
+
+  }, []);
   return (
     <>
       <Head>
@@ -34,14 +43,18 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <div className={styles.description}>
-          <div>
+        <Container>
+          <Stack>
+            <div>
             {isConnected ? <div>
               Connected to {address}
-              <button onClick={() => disconnect()}>Disconnect</button>
-            </div> : <div><button onClick={() => {console.log("connCO");connect()}}>Connect Wallet CO</button><button onClick={() => {console.log("connMMMM");connectMM()}}>Connect MMM</button></div>}
-          </div>
-        </div>
+              <Button size='lg' onClick={() => disconnect()}>Disconnect</Button>
+            </div> : <Stack><Button size='lg' onClick={() => { console.log("connCO"); connect() }}>Connect Wallet CO</Button>
+            <Button size='lg' onClick={() => { console.log("connMMMM"); connectMM() }}>Connect MMM</Button></Stack>}
+            </div>
+            <Button onClick={() => alert("10000000")}>Alerto</Button>
+          </Stack>
+        </Container>
       </main>
     </>
   )

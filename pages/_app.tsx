@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app'
 import { configureChains, createClient, WagmiConfig } from 'wagmi'
 import { mainnet, optimism } from 'wagmi/chains'
 import { publicProvider } from 'wagmi/providers/public'
+import { ChakraProvider } from '@chakra-ui/react'
 
 const { chains, provider, webSocketProvider } = configureChains(
   [mainnet, optimism],
@@ -16,7 +17,9 @@ const client = createClient({
 })
 
 export default function App({ Component, pageProps }: AppProps) {
-  return <WagmiConfig client={client}>
+  return <ChakraProvider>
+    <WagmiConfig client={client}>
       <Component {...pageProps} />
     </WagmiConfig>
+  </ChakraProvider>
 }
