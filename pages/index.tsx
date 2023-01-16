@@ -8,11 +8,11 @@ import { InjectedConnector } from 'wagmi/connectors/injected'
 
 const inter = Inter({ subsets: ['latin'] })
 
-const  metamaskConn = new InjectedConnector();
-const coinbaseConn  = new CoinbaseWalletConnector({
+const metamaskConn = new InjectedConnector();
+const coinbaseConn = new CoinbaseWalletConnector({
   chains: [mainnet, optimism],
   options: {
-    appName: 'wagmish'        
+    appName: 'wagmish'
   },
 })
 
@@ -21,7 +21,7 @@ export default function Home() {
   const { connect } = useConnect({
     connector: coinbaseConn,
   })
-  const { connect : connectMM } = useConnect({
+  const { connect: connectMM } = useConnect({
     connector: metamaskConn,
   })
   const { disconnect } = useDisconnect()
@@ -34,12 +34,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <div className={styles.description}>          
+        <div className={styles.description}>
           <div>
-          {isConnected ? <div>
-        Connected to {address}
-        <button onClick={() => disconnect()}>Disconnect</button>
-      </div> :  <div><button onClick={() => connect()}>Connect Wallet CO</button><button onClick={() => connectMM()}>Connect MMM</button></div>}
+            {isConnected ? <div>
+              Connected to {address}
+              <button onClick={() => disconnect()}>Disconnect</button>
+            </div> : <div><button onClick={() => {console.log("connCO");connect()}}>Connect Wallet CO</button><button onClick={() => {console.log("connMMMM");connectMM()}}>Connect MMM</button></div>}
           </div>
         </div>
       </main>
