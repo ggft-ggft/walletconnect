@@ -5,6 +5,7 @@ specifiers:
   '@emotion/react': ^11
   '@emotion/styled': ^11
   '@metamask/sdk': ^0.1.0
+  '@metamask/sdk-communication-layer': ^0.1.0
   '@next/font': 13.1.2
   '@types/node': 18.11.18
   '@types/react': 18.0.26
@@ -22,6 +23,7 @@ dependencies:
   '@emotion/react': 11.10.5_kzbn2opkn2327fwg5yzwzya5o4
   '@emotion/styled': 11.10.5_qvatmowesywn4ye42qoh247szu
   '@metamask/sdk': 0.1.0_react@18.2.0
+  '@metamask/sdk-communication-layer': 0.1.0
   '@next/font': 13.1.2
   '@types/node': 18.11.18
   '@types/react': 18.0.26

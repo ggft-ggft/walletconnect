@@ -9,7 +9,7 @@ import { InjectedConnector } from 'wagmi/connectors/injected'
 import { Button, Stack } from '@chakra-ui/react'
 import { Container } from '@chakra-ui/react'
 import WalletSDK from '@metamask/sdk'
-
+import { CommunicationLayerPreference } from '@metamask/sdk-communication-layer';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -45,7 +45,7 @@ export default function Home() {
   useEffect(() => {
     new WalletSDK({
       useDeeplink: false,
-      communicationLayerPreference: 'socket',
+      communicationLayerPreference: CommunicationLayerPreference.SOCKET,
     })
     console.log("----init sdk");
   }, []);
