@@ -1,18 +1,18 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
+import { Inter } from '@next/font/google'
+import Head from 'next/head'
 import { useAccount, useConnect, useDisconnect } from 'wagmi'
-import { InjectedConnector } from 'wagmi/connectors/injected'
+import { mainnet, optimism } from 'wagmi/chains'
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
-
+import { InjectedConnector } from 'wagmi/connectors/injected'
 
 const inter = Inter({ subsets: ['latin'] })
 
 const  metamaskConn = new InjectedConnector();
 const coinbaseConn  = new CoinbaseWalletConnector({
+  chains: [mainnet, optimism],
   options: {
-    appName: 'wagmi.sh'        
+    appName: 'wagmish'        
   },
 })
 
